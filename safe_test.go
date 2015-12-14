@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-var s = new()
+var s = New(8, 0, 3, Strong)
 
 func TestCheck(t *testing.T) {
 
