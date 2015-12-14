@@ -4,11 +4,16 @@
 
 package safe
 
-import (
-	"testing"
-)
+import "testing"
 
 var s = New(8, 0, 3, Strong)
+
+func setup(t *testing.T) {
+	err := s.SetWords("./words.dat")
+	if err != nil {
+		t.Errorf("set word error: %s\n", err.Error())
+	}
+}
 
 func TestCheck(t *testing.T) {
 
@@ -57,7 +62,23 @@ func TestIsByStep(t *testing.T) {
 }
 
 func TestIsCommonPassword(t *testing.T) {
+	setup(t)
 
+	for _, c := range []struct {
+		in   string
+		freq int
+		want bool
+	}{
+		{"password", 0, true},
+		{"boat", 200, true},
+		{"engine", 216, false},
+		{"golang", 0, false},
+	} {
+		got := s.isCommonPassword(c.in, c.freq)
+		if got != c.want {
+			t.Errorf("got %t want %t", got, c.want)
+		}
+	}
 }
 
 func BenchmarkIsAsdf(b *testing.B) {
@@ -73,5 +94,13 @@ func BenchmarkIsByStep(b *testing.B) {
 }
 
 func BenchmarkIsCommonPassword(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s.isCommonPassword("password", 0)
+	}
+}
 
+func BenchmarkReverse(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		reverse("qwertyasdfghjklmnbvcxz")
+	}
 }

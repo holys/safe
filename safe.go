@@ -6,10 +6,14 @@
 package safe
 
 import (
+	"bufio"
+	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
+// Level identifies the strength of the password.
 type Level uint8
 
 const (
@@ -25,6 +29,8 @@ const (
 var (
 	asdf    = "qwertyuiopasdfghjklzxcvbnm"
 	revAsdf = reverse(asdf)
+
+	words = make(map[string]int) // most frequent used passwords
 )
 
 var (
@@ -41,11 +47,27 @@ type Safety struct {
 	level Level // default level to validate password
 }
 
-// New returns a Safety object with Strong level.
+// New returns a Safety object.
 func New(ml, mf, mt int, level Level) *Safety {
 	return &Safety{ml, mf, mt, level}
 }
 
+func (s *Safety) SetWords(fpath string) error {
+	f, err := os.Open(fpath)
+	if err != nil {
+		return err
+	}
+
+	scanner := bufio.NewScanner(f)
+	var tmp []string
+	for scanner.Scan() {
+		tmp = strings.Split(scanner.Text(), " ")
+		words[tmp[0]], _ = strconv.Atoi(tmp[1])
+	}
+	return nil
+}
+
+// Check validate the password, and get the level.
 func (s *Safety) Check(raw string) Level {
 	l := len([]rune(raw))
 	if l < s.ml {
@@ -121,14 +143,12 @@ func (s *Safety) isByStep(raw string) bool {
 
 // If the password is common used
 // 10k top passwords: https://xato.net/passwords/more-top-worst-passwords/
-func (s *Safety) isCommonPassword(raw string, req int) bool {
-	return false
-}
-
-//TODO: 优化查找,  对比不同的查找算法
-
-func loadWords() {
-
+func (s *Safety) isCommonPassword(raw string, freq int) bool {
+	f, ok := words[raw]
+	if !ok {
+		return false
+	}
+	return f > freq
 }
 
 func reverse(raw string) string {
