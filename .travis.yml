@@ -1,15 +1,16 @@
 language: go
 go:
-    - 1.3.3
-    - 1.4.2
-    - 1.5.1
-    - tip
+- 1.3.3
+- 1.4.2
+- 1.5.1
+- tip
 install:
-  - go get golang.org/x/tools/cmd/cover
-  - go get github.com/mattn/goveralls
+- go get golang.org/x/tools/cmd/cover
+- go get github.com/mattn/goveralls
 script:
-  - go install github.com/holys/safe
-  - go test -v -race -cover  -covermode=count -coverprofile=coverage.out 
-  - $(go env GOPATH | awk 'BEGIN{FS=":"} {print $1}')/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
-env:
-  secure: NTzSnFpp1M9BWKXJcZ7vY7sMgRAM5agIyWKwAGWvqDACphrM5BWG6uFoeRJX/Ungrfyo8CelC5WJf/7IgDNxK4b2Lsj1IS08dnFePtVXFKtl2OWJAKEfo6vewmlfEcIEEk3W4W/5JCh9WGq148HradKyfrGdnP2zpL0xqdTDkWAjDPM+P3dmUkFtMPKzQo3+JSDv7uJcOd2xJDzx/+2IN2BLPs44Gv3NRAtSwv6wBtSrXl5eX2Xa8SjYsk6lKdkWCqudA9tYE4qcG8fFErYYbV8x/AY554T8r6IejalMLfrSDshmj1A71YP17zeUPR8aSyGxiD3KvOx8dUZcUIekd2bD957RDPmVVoJi2Z9Kj43TnYT0BT5R7P+cwOEjG0O6sSmb6AUHidyqGsLEBer69bzg6gXeWIrXSCnLZ1s3iyR1wHYvSGUZNSn4vCgajWoJxVZgdVd748XkmnD32t3dgnc+SMWdIw/nisAh0xDrM3LkLUq90k7ObjdKXa2980ycdG54cKHaawQqHDEzl1X8Ol+8v0iC5liXwVzqI9pZ1w7FHSvlrLOZbHMVvhVRyZhQOvgfVl+UiHUtXcRlrejPkLUD6hyeqBVgn2cgb6yU0qE3XzhuWtCyRt2RHUDBNEFHF/PAovwA2I94Uc8WZRx517W+n43Ukn9kwNCLtkcd9bA=
+- go install github.com/holys/safe
+- go test -v -race -cover  -covermode=count -coverprofile=coverage.out
+- $(go env GOPATH | awk 'BEGIN{FS=":"} {print $1}')/bin/goveralls -coverprofile=coverage.out
+  -service=travis-ci -repotoken $COVERALLS_TOKEN
+dd:
+  secure: glGF6TPvJJTkhEbSlyUy0tMiMdQb2ZRyPNcxkG8+37zxun5NFiOD8AnLAuvlMoxF5n8sT2FQe9ExVn/0LQTEvG5SqaA/PNXnfJoXUpYAm4Co5eA1OWserHY8yn/f80JRHjQ/62oBTYwh6nQZKiMmrMLKa+GHKuJDeC6kIuWl6X7AnkYMkMJUHHf8eHZeiYGhzgaWAH6KAA4HeoZiQDL48+HJ0nHJP5a/VQqK5xvfTWcsovanhxvl/Qx7jEJK59kT9s1vti2NhJe9HTYsVQw7AssQjut7yzMARuTcWvNO94cdVwCI90qeFHhW0DV+Wibnlub4+LHZOigOBa4aunCWNUR/lm8TuSy9qrWKxFLDDPT7znOBTmJiSVAkVWCQmNMM3pzVLTy3fwSFl/ouS/0XShr9+zRBW1kOTpcIuSeQG0islST/1WAph0UEhLy7aeQXA7Jvgrg7FsipZckvictGird4NokaoEzr/j2l1dGUNMOhy2AcGXTzoNjw8v5S3yX6hbZEiiZiG1Tmd6mvYocr1SlTFPWWVd22y63WNCMyrGLWR8MCmun/7fNl5QoAuaZJgff7Jt7N68h+tlxE45QlKNwvwlRln45ShwRGceD5AIs2Zig46r9LHpLamWYQJwVJ44YYU8GLMNLzow1Befo5Q9cKhF8nR8v+FBX/BNOmlIs=
