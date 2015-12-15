@@ -16,6 +16,25 @@ func setup(t *testing.T) {
 }
 
 func TestCheck(t *testing.T) {
+	setup(t)
+	for _, c := range []struct {
+		in   string
+		want Level
+	}{
+		{"dasda", Terrible},
+		{"aW1#", Terrible},
+		{"asdfghjkl", Simple},
+		{"abcdefghi", Simple},
+		{"password", Simple},
+		{"qeasdasddsad", Medium},
+		{"eqweqwewe123", Medium},
+		{"ewqeqwewqe12#", Strong},
+	} {
+		got := s.Check(c.in)
+		if got != c.want {
+			t.Errorf("%s got %v, want %v", c.in, got, c.want)
+		}
+	}
 
 }
 
@@ -102,5 +121,11 @@ func BenchmarkIsCommonPassword(b *testing.B) {
 func BenchmarkReverse(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		reverse("qwertyasdfghjklmnbvcxz")
+	}
+}
+
+func BenchmarkCheck(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s.Check("qwert123!Z")
 	}
 }
