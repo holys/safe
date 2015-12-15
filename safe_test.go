@@ -51,6 +51,7 @@ func TestIsAsdf(t *testing.T) {
 		{"mnbvc", true},
 		{"Asdf", false},
 		{"qwrty", false},
+		{"lkjhgfdsa", true},
 	} {
 		got := s.isAsdf(c.in)
 		if got != c.want {

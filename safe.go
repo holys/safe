@@ -116,11 +116,6 @@ func (s *Safety) isAsdf(raw string) bool {
 		return true
 	}
 
-	// s in reverse(asdf),  or reverse in reverse(asdf)
-	if strings.Contains(revAsdf, raw) || strings.Contains(revAsdf, rev) {
-		return true
-	}
-
 	return false
 }
 
