@@ -24,6 +24,7 @@ go get github.com/holys/safe
 import  "github.com/holys/safe"
 
 s := safe.New(8, 0, 3, safe.Strong)
+s.SetWords("/path/to/words")
 s.Check("password")
 ```
 
