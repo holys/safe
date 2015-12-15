@@ -28,6 +28,7 @@ func TestCheck(t *testing.T) {
 		{"password", Simple},
 		{"qeasdasddsad", Medium},
 		{"eqweqwewe123", Medium},
+		{"asdQWEaaa", Medium},
 		{"ewqeqwewqe12#", Strong},
 	} {
 		got := s.Check(c.in)
