@@ -112,11 +112,7 @@ func (s *Safety) Check(raw string) Level {
 func (s *Safety) isAsdf(raw string) bool {
 	// s in asdf , or reverse in asdf
 	rev := reverse(raw)
-	if strings.Contains(asdf, raw) || strings.Contains(asdf, rev) {
-		return true
-	}
-
-	return false
+	return strings.Contains(asdf, raw) || strings.Contains(asdf, rev)
 }
 
 // If the password is alphabet step by step.
